@@ -13,15 +13,12 @@ setopt rcquotes
     echo 'error initializing.' >&2
     exit 2
 } =( <<< '
-typeset -gx CMP_ZSH_CACHE_DIR=${CMP_ZSH_CACHE_DIR:-"${XDG_CACHE_HOME:-"$HOME/.cache"}/cmp/zsh"}
-
-mkdir -p "$CMP_ZSH_CACHE_DIR"
 
 # no prompt!
 PROMPT=
 
 # load completion system
-autoload -U compinit; compinit -C -d "$CMP_ZSH_CACHE_DIR/compdump"
+autoload -Uz compinit && compinit -C -d "${TMPPREFIX}/completion_cache"
 
 # never run a command
 bindkey ''^M'' undefined
